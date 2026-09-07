@@ -16,6 +16,7 @@
     }
     .scroll-hidden::-webkit-scrollbar { display: none; }
     .scroll-hidden { -ms-overflow-style: none; scrollbar-width: none; }
+    .map-card{display:flex;align-items:center;gap:.75rem;padding:1rem;border:1px solid #e2e8f0;border-radius:1rem;background:#f8fafc;transition:.2s}.map-card:hover{transform:translateY(-2px);border-color:#93c5fd;box-shadow:0 8px 20px rgba(15,23,42,.08)}.map-card span{display:flex;flex-direction:column;font-size:.8rem}.map-card small{color:#64748b;font-weight:600}.hub-button{display:flex;align-items:center;justify-content:center;min-height:2.75rem;padding:.65rem .75rem;border:1px solid #e2e8f0;border-radius:.75rem;background:#f8fafc;transition:.2s}.hub-button:hover{background:#eff6ff;border-color:#93c5fd}.field{width:100%;padding:.6rem .75rem;border:1px solid #cbd5e1;border-radius:.75rem;font-size:.875rem;font-weight:600;background:white}
     @media print {
       header, nav, .no-print { display: none !important; }
       .tab-content { display: block !important; margin-bottom: 2rem; }
@@ -43,11 +44,11 @@
 
       <!-- Live Countdown & Date Widget -->
       <div class="mt-6 inline-flex flex-wrap items-center justify-center gap-3 bg-slate-900/40 backdrop-blur-md border border-white/25 px-5 py-3 rounded-2xl shadow-lg">
-        <div class="flex items-center gap-2 text-amber-300 text-xs sm:text-sm font-black uppercase tracking-wider">
+        <div class="flex items-center gap-2 text-amber-300 text-lg sm:text-2xl font-black uppercase tracking-wider">
           <i class="fa-solid fa-plane-departure text-base animate-pulse"></i>
           <span>Takeoff In:</span>
         </div>
-        <div class="flex items-center gap-2 text-center text-white font-black text-sm sm:text-base">
+        <div class="flex items-center gap-2 text-center text-white font-black text-xl sm:text-3xl">
           <span class="bg-white/20 px-2.5 py-1 rounded-lg" id="cd-days">00</span><span class="text-xs font-semibold text-rose-200">D</span>
           <span class="bg-white/20 px-2.5 py-1 rounded-lg" id="cd-hours">00</span><span class="text-xs font-semibold text-rose-200">H</span>
           <span class="bg-white/20 px-2.5 py-1 rounded-lg" id="cd-mins">00</span><span class="text-xs font-semibold text-rose-200">M</span>
@@ -63,11 +64,9 @@
       <!-- Action Buttons (Print / Share / Crew) -->
       <div class="mt-5 flex flex-wrap justify-center items-center gap-3 text-xs sm:text-sm font-bold no-print">
         <!-- Interactive Crew Size Badge -->
-        <div class="bg-white/20 backdrop-blur-md border border-white/30 px-3.5 py-1.5 rounded-xl flex items-center gap-2 shadow-sm">
-          <i class="fa-solid fa-users text-amber-300"></i>
-          <span>Crew:</span>
-          <input type="number" id="crew-size-input" value="4" min="1" max="25" onchange="updateCrewSize(this.value)" class="w-12 bg-white text-rose-600 font-extrabold text-center rounded px-1 py-0.5 outline-none shadow-inner" />
-          <span>Explorers</span>
+        <div class="bg-white/20 backdrop-blur-md border border-white/30 px-4 py-2 rounded-xl flex items-center gap-2 shadow-sm">
+          <i class="fa-solid fa-users text-amber-300"></i><span>Crew:</span>
+          <span class="bg-white text-rose-600 font-extrabold px-3 py-1 rounded-lg shadow-inner">8</span><span>Explorers</span>
         </div>
 
         <!-- Share with Friends -->
@@ -82,6 +81,9 @@
           <span>Save PDF / Print</span>
         </button>
       </div>
+      <div class="mt-3 flex flex-wrap justify-center gap-2 text-xs sm:text-sm font-bold no-print" aria-label="Trip crew members">
+        <span class="bg-white/20 border border-white/25 px-3 py-1 rounded-full">Anil</span><span class="bg-white/20 border border-white/25 px-3 py-1 rounded-full">Abhi</span><span class="bg-white/20 border border-white/25 px-3 py-1 rounded-full">Vikram</span><span class="bg-white/20 border border-white/25 px-3 py-1 rounded-full">Karishma</span><span class="bg-white/20 border border-white/25 px-3 py-1 rounded-full">Shainaa</span><span class="bg-white/20 border border-white/25 px-3 py-1 rounded-full">Vihaan</span><span class="bg-white/20 border border-white/25 px-3 py-1 rounded-full">Aanya</span><span class="bg-white/20 border border-white/25 px-3 py-1 rounded-full">Eva</span>
+      </div>
     </div>
   </header>
 
@@ -95,6 +97,7 @@
       <button onclick="switchTab('wishlist')" id="tab-btn-wishlist" class="tab-btn py-2 px-3.5 rounded-xl whitespace-nowrap transition flex items-center gap-1.5 hover:bg-purple-50 hover:text-purple-600"><i class="fa-solid fa-heart text-purple-500"></i>Group Wishlist</button>
       <button onclick="switchTab('splitter')" id="tab-btn-splitter" class="tab-btn py-2 px-3.5 rounded-xl whitespace-nowrap transition flex items-center gap-1.5 hover:bg-sky-50 hover:text-sky-600"><i class="fa-solid fa-receipt text-sky-500"></i>Bill Splitter</button>
       <button onclick="switchTab('phrases')" id="tab-btn-phrases" class="tab-btn py-2 px-3.5 rounded-xl whitespace-nowrap transition flex items-center gap-1.5 hover:bg-rose-50 hover:text-rose-600"><i class="fa-solid fa-volume-high text-rose-500"></i>Audio Phrases</button>
+      <button onclick="switchTab('travelhub')" id="tab-btn-travelhub" class="tab-btn py-2 px-3.5 rounded-xl whitespace-nowrap transition flex items-center gap-1.5 hover:bg-blue-50 hover:text-blue-600"><i class="fa-solid fa-map-location-dot text-blue-500"></i>Maps &amp; Travel Hub</button>
     </div>
   </nav>
 
@@ -286,6 +289,11 @@
 
     <!-- 2. VOUCHERS & FLIGHTS TAB (From Drive Folder) -->
     <section id="tab-vouchers" class="tab-content hidden space-y-6">
+      <div class="bg-white border border-sky-100 rounded-2xl p-5 shadow-sm no-print">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3"><div><h2 class="text-xl font-black text-slate-900 flex items-center gap-2"><i class="fa-solid fa-cloud-arrow-up text-sky-500"></i> Tickets &amp; Voucher Wallet</h2><p class="text-xs text-slate-500 mt-1">Add PDFs or images. Files stay in this browser and are not uploaded to GitHub.</p></div>
+          <label class="cursor-pointer bg-sky-600 hover:bg-sky-700 text-white font-bold text-sm px-4 py-2.5 rounded-xl shadow-sm"><i class="fa-solid fa-plus mr-1"></i>Add files<input id="voucher-upload" type="file" multiple accept=".pdf,.jpg,.jpeg,.png,.webp" class="hidden" /></label></div>
+        <div id="uploaded-files" class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+      </div>
       
       <!-- Flight Vouchers Section -->
       <div>
@@ -557,7 +565,7 @@
           </div>
           <div>
             <label class="block text-xs font-black text-slate-700 mb-1 uppercase">Crew Size</label>
-            <input type="number" id="split-ppl" value="4" min="1" class="w-full px-3 py-2 border rounded-xl text-sm font-bold focus:outline-none focus:border-rose-500" />
+            <input type="number" id="split-ppl" value="8" readonly aria-readonly="true" class="w-full px-3 py-2 border rounded-xl text-sm font-bold bg-slate-100 text-slate-600 cursor-not-allowed" />
           </div>
           <div>
             <label class="block text-xs font-black text-slate-700 mb-1 uppercase">Exchange Rate (AUD/JPY)</label>
@@ -572,11 +580,11 @@
         <div class="mt-6 p-4 bg-slate-50 rounded-2xl border border-slate-200 flex flex-wrap justify-around text-center gap-4">
           <div>
             <span class="text-xs text-slate-500 font-bold uppercase">Each Person Pays</span>
-            <p id="res-jpy" class="text-3xl font-black text-rose-600 mt-0.5">&yen;6,000</p>
+            <p id="res-jpy" class="text-3xl font-black text-rose-600 mt-0.5">&yen;3,000</p>
           </div>
           <div>
             <span class="text-xs text-slate-500 font-bold uppercase">In Australian Dollars (AUD)</span>
-            <p id="res-aud" class="text-3xl font-black text-slate-800 mt-0.5">$60.00 AUD</p>
+            <p id="res-aud" class="text-3xl font-black text-slate-800 mt-0.5">$30.00 AUD</p>
           </div>
         </div>
       </div>
@@ -642,7 +650,19 @@
       </div>
     </section>
 
-  </main>
+  
+    <section id="tab-travelhub" class="tab-content hidden space-y-6">
+      <div class="bg-white border border-blue-100 rounded-2xl p-6 shadow-sm"><h2 class="text-xl font-black text-slate-900 mb-1"><i class="fa-solid fa-map-location-dot text-blue-500 mr-2"></i>Easy Location Mapping</h2><p class="text-xs text-slate-500 mb-4">Open itinerary stops directly in Google Maps.</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Shibuya+Crossing+Tokyo" class="map-card">📍<span><strong>Shibuya Crossing</strong><small>Tokyo</small></span></a><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Senso-ji+Temple+Tokyo" class="map-card">⛩️<span><strong>Senso-ji</strong><small>Tokyo</small></span></a><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=teamLab+Planets+Tokyo" class="map-card">🎨<span><strong>teamLab Planets</strong><small>Tokyo</small></span></a><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Mount+Fuji+5th+Station" class="map-card">🗻<span><strong>Mount Fuji</strong><small>Fuji</small></span></a><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Fushimi+Inari+Taisha" class="map-card">⛩️<span><strong>Fushimi Inari</strong><small>Kyoto</small></span></a><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Nara+Park" class="map-card">🦌<span><strong>Nara Park</strong><small>Nara</small></span></a><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Universal+Studios+Japan" class="map-card">🍄<span><strong>Universal Studios</strong><small>Osaka</small></span></a><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=ANA+Holiday+Inn+Tokyo+Bay" class="map-card">🏨<span><strong>Tokyo Hotel</strong><small>Tokyo</small></span></a><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=RIHGA+Royal+Hotel+Osaka" class="map-card">🏨<span><strong>Osaka Hotel</strong><small>Osaka</small></span></a>
+        </div></div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4"><div class="bg-white border border-sky-100 rounded-2xl p-5 shadow-sm"><h3 class="font-black mb-3"><i class="fa-solid fa-cloud-sun text-sky-500 mr-2"></i>Weather</h3><div class="grid grid-cols-3 gap-2 text-xs font-bold"><a target="_blank" href="https://www.google.com/search?q=Tokyo+weather" class="hub-button">Tokyo</a><a target="_blank" href="https://www.google.com/search?q=Kyoto+weather" class="hub-button">Kyoto</a><a target="_blank" href="https://www.google.com/search?q=Osaka+weather" class="hub-button">Osaka</a></div></div>
+      <div class="bg-white border border-rose-100 rounded-2xl p-5 shadow-sm"><h3 class="font-black mb-3"><i class="fa-solid fa-plane-circle-check text-rose-500 mr-2"></i>Flight status</h3><div class="grid grid-cols-2 gap-2 text-xs font-bold"><a target="_blank" href="https://www.google.com/search?q=SQ218+flight+status" class="hub-button">SQ218</a><a target="_blank" href="https://www.google.com/search?q=SQ12+flight+status" class="hub-button">SQ12</a><a target="_blank" href="https://www.google.com/search?q=SQ11+flight+status" class="hub-button">SQ11</a><a target="_blank" href="https://www.google.com/search?q=SQ207+flight+status" class="hub-button">SQ207</a></div></div></div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4"><div class="bg-red-50 border border-red-200 rounded-2xl p-5"><h3 class="font-black text-red-800 mb-3"><i class="fa-solid fa-kit-medical mr-2"></i>Emergency contacts</h3><p class="text-sm"><strong>Police:</strong> <a href="tel:110" class="underline">110</a></p><p class="text-sm"><strong>Ambulance / Fire:</strong> <a href="tel:119" class="underline">119</a></p><p class="text-sm"><strong>Australian Embassy Tokyo:</strong> <a href="tel:+81352324111" class="underline">+81 3 5232 4111</a></p><p class="text-xs text-red-700 mt-2">Add insurer and transfer contacts before departure.</p></div>
+      <div class="bg-white border border-purple-100 rounded-2xl p-5"><h3 class="font-black mb-3"><i class="fa-solid fa-qrcode text-purple-500 mr-2"></i>QR &amp; quick links</h3><div class="grid grid-cols-2 gap-2 text-xs font-bold"><a target="_blank" href="https://www.vjw.digital.go.jp/" class="hub-button">Visit Japan Web</a><button onclick="makeQr('https://www.vjw.digital.go.jp/','Visit Japan Web')" class="hub-button">Show QR</button><a target="_blank" href="https://www.google.com/maps/search/?api=1&amp;query=Narita+International+Airport+Terminal+1" class="hub-button">Narita T1</a><button onclick="makeQr(window.location.href,'Trip Portal')" class="hub-button">Portal QR</button></div><div id="qr-output" class="hidden mt-4 text-center"><p id="qr-title" class="text-sm font-black mb-2"></p><img id="qr-image" alt="QR code" class="mx-auto w-44 h-44" /></div></div></div>
+      <div class="bg-white border border-emerald-100 rounded-2xl p-5"><h3 class="font-black mb-1"><i class="fa-solid fa-users-between-lines text-emerald-500 mr-2"></i>Crew expense tracker</h3><p class="text-xs text-slate-500 mb-4">Entries are stored locally on this device.</p><div class="grid grid-cols-1 sm:grid-cols-4 gap-2 no-print"><select id="expense-person" class="field"><option>Anil</option><option>Abhi</option><option>Vikram</option><option>Karishma</option><option>Shainaa</option><option>Vihaan</option><option>Aanya</option><option>Eva</option></select><input id="expense-desc" class="field" placeholder="Description"/><input id="expense-amt" class="field" type="number" min="0" placeholder="JPY amount"/><button onclick="addExpense()" class="bg-emerald-600 text-white rounded-xl font-bold">Add expense</button></div><div id="expense-list" class="mt-4 space-y-2"></div></div>
+    </section>
+</main>
 
   <script>
     // Live Takeoff Countdown (Melbourne Time departure: 20 Sep 2026, 23:35 AEST)
@@ -706,13 +726,22 @@
         alert('Trip website URL copied to clipboard! Paste and send to friends.');
       }
     }
-
-    // Crew Size Sync
-    function updateCrewSize(val) {
-      document.getElementById('split-ppl').value = val;
-      calculateSplit();
-    }
-
+// Local browser storage for vouchers and crew expenses
+    const DB_NAME='JapanAdventure2026', STORE_NAME='voucherFiles';
+    function openVoucherDb(){return new Promise((resolve,reject)=>{const r=indexedDB.open(DB_NAME,1);r.onupgradeneeded=()=>r.result.createObjectStore(STORE_NAME,{keyPath:'id',autoIncrement:true});r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error)})}
+    async function getVouchers(){const db=await openVoucherDb();return new Promise((resolve,reject)=>{const r=db.transaction(STORE_NAME).objectStore(STORE_NAME).getAll();r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error)})}
+    async function saveVoucherFiles(files){const db=await openVoucherDb(),tx=db.transaction(STORE_NAME,'readwrite');[...files].forEach(file=>tx.objectStore(STORE_NAME).add({name:file.name,size:file.size,file}));tx.oncomplete=renderVoucherFiles}
+    async function deleteVoucherFile(id){const db=await openVoucherDb(),tx=db.transaction(STORE_NAME,'readwrite');tx.objectStore(STORE_NAME).delete(id);tx.oncomplete=renderVoucherFiles}
+    async function openVoucherFile(id){const item=(await getVouchers()).find(x=>x.id===id);if(!item)return;const u=URL.createObjectURL(item.file);window.open(u,'_blank');setTimeout(()=>URL.revokeObjectURL(u),60000)}
+    function escapeHtml(v){const d=document.createElement('div');d.textContent=v;return d.innerHTML}
+    async function renderVoucherFiles(){const box=document.getElementById('uploaded-files');if(!box)return;const files=await getVouchers();box.innerHTML=files.length?'':'<p class="text-xs text-slate-400">No additional files saved yet.</p>';files.forEach(x=>{const d=document.createElement('div');d.className='p-3 bg-slate-50 border rounded-xl flex justify-between gap-3';d.innerHTML=`<span class="truncate text-sm font-bold"><i class="fa-regular fa-file text-sky-500 mr-2"></i>${escapeHtml(x.name)}</span><span class="whitespace-nowrap"><button onclick="openVoucherFile(${x.id})" class="text-sky-600 mr-2"><i class="fa-solid fa-arrow-up-right-from-square"></i></button><button onclick="deleteVoucherFile(${x.id})" class="text-rose-500"><i class="fa-regular fa-trash-can"></i></button></span>`;box.appendChild(d)})}
+    const voucherInput=document.getElementById('voucher-upload');if(voucherInput)voucherInput.addEventListener('change',e=>{saveVoucherFiles(e.target.files);e.target.value=''})
+    let crewExpenses=JSON.parse(localStorage.getItem('japanCrewExpenses')||'[]');
+    function addExpense(){const person=document.getElementById('expense-person').value,desc=document.getElementById('expense-desc').value.trim(),amount=parseFloat(document.getElementById('expense-amt').value);if(!desc||!Number.isFinite(amount)||amount<=0)return;crewExpenses.unshift({id:Date.now(),person,desc,amount});localStorage.setItem('japanCrewExpenses',JSON.stringify(crewExpenses));document.getElementById('expense-desc').value='';document.getElementById('expense-amt').value='';renderExpenses()}
+    function removeExpense(id){crewExpenses=crewExpenses.filter(x=>x.id!==id);localStorage.setItem('japanCrewExpenses',JSON.stringify(crewExpenses));renderExpenses()}
+    function renderExpenses(){const box=document.getElementById('expense-list');if(!box)return;box.innerHTML=crewExpenses.length?'':'<p class="text-xs text-slate-400">No expenses recorded.</p>';crewExpenses.forEach(x=>{const d=document.createElement('div');d.className='flex justify-between p-3 bg-emerald-50 border border-emerald-100 rounded-xl text-sm';d.innerHTML=`<span><strong>${escapeHtml(x.person)}</strong> · ${escapeHtml(x.desc)}</span><span class="font-black">¥${x.amount.toLocaleString()} <button onclick="removeExpense(${x.id})" class="text-rose-500 ml-2"><i class="fa-regular fa-trash-can"></i></button></span>`;box.appendChild(d)})}
+    function makeQr(v,t){document.getElementById('qr-title').textContent=t;document.getElementById('qr-image').src='https://api.qrserver.com/v1/create-qr-code/?size=220x220&data='+encodeURIComponent(v);document.getElementById('qr-output').classList.remove('hidden')}
+    renderVoucherFiles().catch(()=>{});renderExpenses();
     // Bill Splitter
     function calculateSplit() {
       const amt = parseFloat(document.getElementById('split-amt').value) || 0;
@@ -744,6 +773,7 @@
       document.getElementById('pack-progress').innerText = `${checked} of ${total} packed`;
     }
 
+    calculateSplit();
     // Audio Speech Synthesis
     function speakJapanese(phrase) {
       if ('speechSynthesis' in window) {
